@@ -8,10 +8,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration // Tells Spring Boot that this class contains configuration beans
 @EnableWebSecurity // Enables Spring Security's custom web security support
 public class SecurityConfig {
+
+    // bcrypt
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean // Tells Spring to manage the object returned by this method as a core component (Bean)
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -46,5 +54,10 @@ public class SecurityConfig {
 
         // Builds and returns the security filter chain with our new rules
         return http.build();
+
     }
 }
+
+
+
+
